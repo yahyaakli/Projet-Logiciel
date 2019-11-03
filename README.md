@@ -1,2 +1,2 @@
 # Projet-Logiciel
-Equipe projet 2A
+Equipe projet 2A - ENSEM
