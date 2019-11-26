@@ -10,7 +10,7 @@ import handled.objects.*;
 public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = -1409993449407272962L;
-	public static final int WIDTH= 648, HEIGHT=WIDTH/12*9;
+	public static final int WIDTH= 800, HEIGHT=WIDTH/12*9;
 	private Thread thread;
 	private boolean running = false;
 	
@@ -22,6 +22,9 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH,HEIGHT,"GAME",this);
 		
 		resources.addObject(new Hero(32,32,ID.player));
+		resources.addObject(new Hufflepuffs(300, 300, ID.Enemy));
+		resources.addObject(new Griffindors(150, 150, ID.Enemy));
+
 	}
 
 	public synchronized void start() {
