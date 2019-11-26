@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import Interface.g.Game;
 
 public class Hero extends CharacterObject{
-
+	
 	public Hero(int x, int y, ID id) {
 		super(x, y, id);
 
