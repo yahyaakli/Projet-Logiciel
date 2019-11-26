@@ -18,16 +18,16 @@ public class KeyInput extends KeyAdapter{
 			if(tempObject.getId()==ID.player) {
 				// key event 
 				switch(key) {
-				case KeyEvent.VK_W:
+				case KeyEvent.VK_UP:
 					tempObject.setSpeedY(-5);
 					break;
-				case KeyEvent.VK_S:
+				case KeyEvent.VK_DOWN:
 					tempObject.setSpeedY(5);
 					break;
-				case KeyEvent.VK_A:
+				case KeyEvent.VK_LEFT:
 					tempObject.setSpeedX(-5);
 					break;
-				case KeyEvent.VK_D:
+				case KeyEvent.VK_RIGHT:
 					tempObject.setSpeedX(5);
 					break;
 				}
@@ -42,16 +42,16 @@ public class KeyInput extends KeyAdapter{
 			CharacterObject tempObject = handler.object.get(i);
 			if(tempObject.getId()==ID.player) {
 				switch(key) {
-				case KeyEvent.VK_W:
+				case KeyEvent.VK_UP:
 					tempObject.setSpeedY(0);
 					break;
-				case KeyEvent.VK_S:
+				case KeyEvent.VK_DOWN:
 					tempObject.setSpeedY(0);
 					break;
-				case KeyEvent.VK_A:
+				case KeyEvent.VK_LEFT:
 					tempObject.setSpeedX(0);
 					break;
-				case KeyEvent.VK_D:
+				case KeyEvent.VK_RIGHT:
 					tempObject.setSpeedX(0);
 					break;
 				}
