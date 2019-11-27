@@ -15,13 +15,15 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	
 	private Resources resources;
-	
+	private HUD hud;
 	public Game() {
 		resources = new Resources();
 		this.addKeyListener(new KeyInput(resources));
 		new Window(WIDTH,HEIGHT,"GAME",this);
 		
-		resources.addObject(new Hero(32,32,ID.player));
+		hud=new HUD();
+		
+		resources.addObject(new Hero(32,32,ID.player, resources));
 		resources.addObject(new Hufflepuffs(300, 300, ID.Enemy));
 		resources.addObject(new Griffindors(150, 150, ID.Enemy));
 
@@ -69,6 +71,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	private void tick() {
 		resources.tick();
+		hud.tick();
 	}
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -79,9 +82,9 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-	
-		resources.render(g);
 		
+		resources.render(g);
+		hud.render(g);
 		g.dispose();
 		bs.show();
 	}

@@ -2,6 +2,7 @@ package handled.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 import Interface.g.Game;
 public class Hufflepuffs extends CharacterObject {
@@ -13,7 +14,9 @@ public class Hufflepuffs extends CharacterObject {
 		super(x, y, id);
 		r = new Random();
 	}
-
+	public Rectangle getBounds() {
+		return new Rectangle(x,y,18,18);
+	}
 	
 	public void tick() {
 		// TODO Auto-generated method stub

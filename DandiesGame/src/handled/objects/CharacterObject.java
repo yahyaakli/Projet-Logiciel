@@ -1,6 +1,7 @@
 package handled.objects;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 
@@ -13,6 +14,7 @@ public abstract class CharacterObject {
 		this.y=y;
 		this.id=id;
 	}
+	public abstract Rectangle getBounds();
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
