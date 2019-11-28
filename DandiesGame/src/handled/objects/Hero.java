@@ -1,9 +1,11 @@
 package handled.objects;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import Interface.g.Cmd;
 import Interface.g.Game;
 
 public class Hero extends CharacterObject{
@@ -16,11 +18,28 @@ public class Hero extends CharacterObject{
 	public Rectangle getBounds() {
 		return new Rectangle(x,y,32,32);
 	}
-	public void tick() {
+	public void tick(Cmd commande) {
 		x+=speedX;
 		y+=speedY;
 		x=Game.clamp(x, 0, Game.WIDTH - 42);
 		y=Game.clamp(y, 0, Game.HEIGHT - 64);
+		switch(commande) {
+		case up:
+			setSpeedY(-5);
+			break;
+		case down:
+			setSpeedY(5);
+			break;
+		case left:
+			setSpeedX(-5);
+			break;
+		case right:
+			setSpeedX(5);
+			break;
+		default:
+			setSpeedX(0);
+			setSpeedY(0);
+		}
 		collision();
 	}
 	public void collision() {

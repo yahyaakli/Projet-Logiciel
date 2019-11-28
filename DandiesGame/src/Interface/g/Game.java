@@ -16,11 +16,12 @@ public class Game extends Canvas implements Runnable{
 	
 	private Resources resources;
 	private HUD hud;
+	private KeyInput keyinput ;
 	public Game() {
 		resources = new Resources();
-		this.addKeyListener(new KeyInput(resources));
 		new Window(WIDTH,HEIGHT,"GAME",this);
-		
+		keyinput = new KeyInput();
+		this.addKeyListener(keyinput);
 		hud=new HUD();
 		
 		resources.addObject(new Hero(32,32,ID.player, resources));
@@ -70,7 +71,7 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	private void tick() {
-		resources.tick();
+		resources.tick(keyinput.getCommande());
 		hud.tick();
 	}
 	private void render() {

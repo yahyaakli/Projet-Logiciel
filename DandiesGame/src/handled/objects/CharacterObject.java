@@ -3,6 +3,8 @@ package handled.objects;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import Interface.g.Cmd;
+
 
 
 public abstract class CharacterObject {
@@ -16,7 +18,7 @@ public abstract class CharacterObject {
 	}
 	public abstract Rectangle getBounds();
 	
-	public abstract void tick();
+	public abstract void tick(Cmd commande);
 	public abstract void render(Graphics g);
 
 	public int getX() {

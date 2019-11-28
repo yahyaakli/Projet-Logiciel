@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import Interface.g.Cmd;
 import Interface.g.Game;
 
 public class Griffindors extends CharacterObject {
@@ -18,9 +19,9 @@ public class Griffindors extends CharacterObject {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x,y,18,18);
+		return new Rectangle(x,y,50,50);
 	}
-	public void tick() {
+	public void tick(Cmd commande) {
 		// TODO Auto-generated method stub
 		x+=speedX;
 		y+=speedY;

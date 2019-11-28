@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
+
+import Interface.g.Cmd;
 import Interface.g.Game;
 public class Hufflepuffs extends CharacterObject {
 	
@@ -19,7 +21,7 @@ public class Hufflepuffs extends CharacterObject {
 		return new Rectangle(x,y,18,18);
 	}
 	
-	public void tick() {
+	public void tick(Cmd commande) {
 		x+=speedX;
 		y+=speedY;
 		x=Game.clamp(x, 0, Game.WIDTH - 42);
