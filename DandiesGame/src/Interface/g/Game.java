@@ -18,11 +18,12 @@ public class Game extends Canvas implements Runnable{
 	private HUD hud;
 	private KeyInput keyinput ;
 	public Game() {
+		hud=new HUD();
+		
 		resources = new Resources();
 		new Window(WIDTH,HEIGHT,"GAME",this);
 		keyinput = new KeyInput();
 		this.addKeyListener(keyinput);
-		hud=new HUD();
 		
 		resources.addObject(new Hero(32,32,ID.player, resources));
 		resources.addObject(new Hufflepuffs(300, 300, ID.Enemy));
