@@ -40,18 +40,37 @@ public class Hero extends CharacterObject{
 			setSpeedX(0);
 			setSpeedY(0);
 		}
-		collision();
+		if (collision())HUD.HP--;
 	}
-	public void collision() {
-		for (int i=0;i<resources.object.size();i++) {
-			CharacterObject tempObject=resources.object.get(i);
-			if (tempObject.getId() ==ID.Enemy) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HP--;
+	public  boolean collision() {
+	for (int i=0;i<resources.object.size();i++) {
+		CharacterObject tempObject=resources.object.get(i);
+		if (tempObject.getId() ==ID.Enemy) {
+			if(getBounds().intersects(tempObject.getBounds())) {
+				if (tempObject.x <Game.WIDTH-8) {
+					tempObject.x+=10;
+					tempObject.speedX*=-1;
 				}
+				else {
+					tempObject.x-=100;
+					tempObject.speedX*=-1;
+				}
+				if (tempObject.y <Game.HEIGHT-8) {
+					tempObject.y+=100;
+					tempObject.speedY*=-1;
+				}
+				else {
+					tempObject.y-=10;
+					tempObject.speedY*=-1;
+				}
+				return true;
+				
 			}
 		}
 	}
+	return false;
+}
+
 
 	public void render(Graphics g) {
 		g.setColor(Color.black);
