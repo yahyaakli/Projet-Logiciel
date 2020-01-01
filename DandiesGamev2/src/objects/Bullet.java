@@ -20,7 +20,7 @@ public class Bullet extends GameObject{
 		y+=velY;
 		for(int i=0;i<handler.object.size();i++) {
 			GameObject tempObject = handler.object.get(i);
-			if(tempObject.getId() == ID.block) {
+			if(tempObject.getId() == ID.border || tempObject.getId() == ID.wall) {
 				if(getbounds().intersects(tempObject.getbounds())) {
 					handler.removeObject(this);
 				}

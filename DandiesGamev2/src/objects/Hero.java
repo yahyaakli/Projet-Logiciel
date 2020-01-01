@@ -44,13 +44,13 @@ public class Hero extends GameObject{
 	private void collision() {
 		for(int i=0;i<handler.object.size();i++) {
 			GameObject tempObject = handler.object.get(i);
-			if(tempObject.getId() == ID.block || tempObject.getId() == ID.enemy) {
+			if(tempObject.getId() == ID.wall || tempObject.getId() == ID.border || tempObject.getId() == ID.griffindors || tempObject.getId() == ID.hufflepuffs) {
 				if(getbounds().intersects(tempObject.getbounds())) {
 					x+= velX*-1;
 					y+= velY*-1;
 				}
 			}
-			if(tempObject.getId() == ID.enemy) {
+			if(tempObject.getId() == ID.griffindors || tempObject.getId() == ID.hufflepuffs) {
 				if(getbounds().intersects(tempObject.getbounds())) {
 					hud.HP--;
 				}	
@@ -58,7 +58,7 @@ public class Hero extends GameObject{
 			
 			if(tempObject.getId() == ID.crate) {
 				if(getbounds().intersects(tempObject.getbounds())) {
-					game.ammo += 10;
+					game.ammo += 30;
 					handler.removeObject(tempObject);
 				}	
 			}

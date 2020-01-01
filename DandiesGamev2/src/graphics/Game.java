@@ -46,7 +46,8 @@ public class Game extends Canvas implements Runnable{
 
 
 		BufferedImageLoader loader = new BufferedImageLoader();
-		level = loader.loadImage("/wizard_level.png");
+		//level = loader.loadImage("/wizard_level.png");
+		level = loader.loadImage("/wizard_level_2.png");
 		sprite_sheet = loader.loadImage("/sprite_sheet.png");
 		ss= new SpriteSheet(sprite_sheet);
 
@@ -163,13 +164,17 @@ public class Game extends Canvas implements Runnable{
 				int red = (pixel>>16) & 0xff;
 				int green = (pixel>>8) & 0xff;
 				int blue = (pixel) & 0xff;
-				if(red == 255)
-					handler.addObject(new Block(xx*32,yy*32,ID.block, ss));
-				if(blue == 255 && green == 0)
+				if(red == 255 && blue == 0 && green ==0)
+					handler.addObject(new Border(xx*32,yy*32,ID.border, ss));
+				if(red == 255 && blue == 0 && green ==255)
+					handler.addObject(new Wall(xx*32,yy*32,ID.wall, ss));
+				if(red == 0 && blue == 255 && green == 0)
 					handler.addObject(new Hero(xx*32,yy*32,ID.player,handler,hud,this, ss));
-				if(green == 255 && blue == 0)
-					handler.addObject(new Griffindors(xx*32,yy*32,ID.enemy,handler, ss));
-				if (green == 255 && blue == 255)
+				if(red == 0 && blue == 0 && green == 255)
+					handler.addObject(new Griffindors(xx*32,yy*32,ID.griffindors,handler, ss));
+				if(red == 255 && blue == 255 && green == 0)
+					handler.addObject(new Hufflepuffs(xx*32,yy*32,ID.hufflepuffs,handler, ss));
+				if (red == 0 && blue == 255 && green == 255)
 					handler.addObject(new Crate(xx*32, yy*32, ID.crate, ss));
 			}
 		}

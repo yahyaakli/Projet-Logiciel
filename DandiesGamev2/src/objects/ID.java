@@ -2,8 +2,10 @@ package objects;
 
 public enum ID {
 	player(),
-	block(),
+	wall(),
+	border(),
 	crate(),
 	bullet(),
-	enemy();
+	hufflepuffs(),
+	griffindors();
 }
