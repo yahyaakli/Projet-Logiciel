@@ -3,18 +3,24 @@ package objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
+
+import graphics.SpriteSheet;
 
 public class Griffindors extends GameObject{
 
 	Random r = new Random();
 	private Handler handler;
+	private BufferedImage griffindors_image;
+
 
 	int choose=0;
 	int hp=100;
-	public Griffindors(int x, int y, ID id, Handler handler) {
-		super(x,y,id);
+	public Griffindors(int x, int y, ID id, Handler handler,  SpriteSheet ss) {
+		super(x,y,id, ss);
 		this.handler = handler;
+		griffindors_image = ss.grabImage(4, 1, 32, 32);
 	}
 	public void tick() {
 		x+=velX;
@@ -45,8 +51,7 @@ public class Griffindors extends GameObject{
 		
 	}
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
-		g.fillRect(x, y, 32, 32);
+		g.drawImage(griffindors_image, x, y, null);
 		
 	}
 	public Rectangle getbounds() {

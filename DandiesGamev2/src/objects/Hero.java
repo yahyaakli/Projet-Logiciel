@@ -3,8 +3,10 @@ package objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import graphics.Game;
+import graphics.SpriteSheet;
 
 
 public class Hero extends GameObject{
@@ -12,11 +14,14 @@ public class Hero extends GameObject{
 	Handler handler;
 	HUD hud;
 	Game game;
-	public Hero(int x, int y, ID id, Handler handler, HUD hud, Game game) {
-		super(x, y, id);
+	private BufferedImage hero_image;
+
+	public Hero(int x, int y, ID id, Handler handler, HUD hud, Game game,  SpriteSheet ss) {
+		super(x, y, id, ss);
 		this.handler = handler;
 		this.hud = hud;
 		this.game = game;
+		hero_image = ss.grabImage(1, 1, 32, 48);
 	}
 
 	public void tick() {
@@ -60,8 +65,7 @@ public class Hero extends GameObject{
 		}
 	}
 	public void render(Graphics g) {
-		g.setColor(Color.BLUE);
-		g.fillRect(x, y, 32, 32);
+		g.drawImage(hero_image, x, y, null);
 	}
 
 	public Rectangle getbounds() {

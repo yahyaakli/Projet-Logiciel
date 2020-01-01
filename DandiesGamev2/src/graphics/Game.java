@@ -17,7 +17,10 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	
 	private BufferedImage level = null;
+	private BufferedImage sprite_sheet = null;
+	private BufferedImage floor = null;
 	private Camera camera;
+	private SpriteSheet ss;
 	private HUD hud;
 	public int ammo = 0;
 	public Game() {
@@ -27,12 +30,14 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		camera = new Camera(0,0);
 		this.addKeyListener(new KeyInput(handler));
-		this.addMouseListener(new MouseInput(handler,camera,this));
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/wizard_level.png");
-		
-		
+		sprite_sheet = loader.loadImage("/sprite_sheet.png");
+		ss= new SpriteSheet(sprite_sheet);
+		floor = ss.grabImage(4, 2, 32, 32);
+		this.addMouseListener(new MouseInput(handler,camera,this, ss));
+
 		loadLevel(level);
 	}
 	
@@ -97,11 +102,16 @@ public class Game extends Canvas implements Runnable{
 		Graphics2D g2d = (Graphics2D) g;
 		
 		////
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, 1000, 563);
-		g2d.translate(-camera.getX(), -camera.getY());
+		for (int xx = 0; xx < 32*72 ; xx+=32) {
+			for (int yy = 0; yy < 32*72 ; yy+=32) {
+				g.drawImage(floor, xx, yy, null);
+			}
+		}
 		
 		handler.render(g);
+		
+		g2d.translate(-camera.getX(), -camera.getY());
+				
 
 		g2d.translate(camera.getX(), camera.getY());
 		hud.render(g);
@@ -121,13 +131,13 @@ public class Game extends Canvas implements Runnable{
 				int green = (pixel>>8) & 0xff;
 				int blue = (pixel) & 0xff;
 				if(red == 255)
-					handler.addObject(new Block(xx*32,yy*32,ID.block));
+					handler.addObject(new Block(xx*32,yy*32,ID.block, ss));
 				if(blue == 255 && green == 0)
-					handler.addObject(new Hero(xx*32,yy*32,ID.player,handler,hud,this));
+					handler.addObject(new Hero(xx*32,yy*32,ID.player,handler,hud,this, ss));
 				if(green == 255 && blue == 0)
-					handler.addObject(new Griffindors(xx*32,yy*32,ID.enemy,handler));
+					handler.addObject(new Griffindors(xx*32,yy*32,ID.enemy,handler, ss));
 				if (green == 255 && blue == 255)
-					handler.addObject(new Crate(xx*32, yy*32, ID.crate));
+					handler.addObject(new Crate(xx*32, yy*32, ID.crate, ss));
 			}
 		}
 	}
