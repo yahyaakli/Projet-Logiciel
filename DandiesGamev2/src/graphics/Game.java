@@ -2,6 +2,7 @@ package graphics;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -35,6 +36,7 @@ public class Game extends Canvas implements Runnable{
 		level = loader.loadImage("/wizard_level.png");
 		sprite_sheet = loader.loadImage("/sprite_sheet.png");
 		ss= new SpriteSheet(sprite_sheet);
+		
 		floor = ss.grabImage(4, 2, 32, 32);
 		this.addMouseListener(new MouseInput(handler,camera,this, ss));
 
@@ -102,19 +104,23 @@ public class Game extends Canvas implements Runnable{
 		Graphics2D g2d = (Graphics2D) g;
 		
 		////
+	
+		
+		g2d.translate(-camera.getX(), -camera.getY());
+			
 		for (int xx = 0; xx < 32*72 ; xx+=32) {
 			for (int yy = 0; yy < 32*72 ; yy+=32) {
 				g.drawImage(floor, xx, yy, null);
 			}
 		}
-		
 		handler.render(g);
-		
-		g2d.translate(-camera.getX(), -camera.getY());
-				
 
 		g2d.translate(camera.getX(), camera.getY());
 		hud.render(g);
+		Font fnt = new Font("Courier",1,20);
+		g.setFont(fnt);
+		g.setColor(Color.black);
+		g.drawString("Ammo: "+ammo,240,35);
 		////
 		
 		g.dispose();
