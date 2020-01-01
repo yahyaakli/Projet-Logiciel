@@ -4,15 +4,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import graphics.Game;
+
 
 public class Hero extends GameObject{
 
 	Handler handler;
 	HUD hud;
-	public Hero(int x, int y, ID id, Handler handler,HUD hud) {
+	Game game;
+	public Hero(int x, int y, ID id, Handler handler, HUD hud, Game game) {
 		super(x, y, id);
 		this.handler = handler;
 		this.hud = hud;
+		this.game = game;
 	}
 
 	public void tick() {
@@ -44,6 +48,13 @@ public class Hero extends GameObject{
 			if(tempObject.getId() == ID.enemy) {
 				if(getbounds().intersects(tempObject.getbounds())) {
 					hud.HP--;
+				}	
+			}
+			
+			if(tempObject.getId() == ID.crate) {
+				if(getbounds().intersects(tempObject.getbounds())) {
+					game.ammo += 10;
+					handler.removeObject(tempObject);
 				}	
 			}
 		}
