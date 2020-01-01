@@ -11,38 +11,51 @@ import java.awt.image.BufferedImage;
 import objects.*;
 
 public class Game extends Canvas implements Runnable{
-	
+
 	private static final long serialVersionUID = 7666159906818439827L;
 	private boolean isRunning = false;
 	private Thread thread;
 	private Handler handler;
-	
-	private BufferedImage level = null;
+
+	public BufferedImage level = null;
 	private BufferedImage sprite_sheet = null;
 	private BufferedImage floor = null;
 	private Camera camera;
 	private SpriteSheet ss;
 	private HUD hud;
 	public int ammo = 0;
+	private Menu menu;
+    
+	
+	public enum STATE {
+		Menu,
+		Help,
+		Game
+	};
+	public STATE gameState=STATE.Menu;
+
 	public Game() {
 		new Window(1000,563,"GAME",this);
 		start();
 		hud=new HUD();
 		handler = new Handler();
 		camera = new Camera(0,0);
+		menu=new Menu(this, handler);
 		this.addKeyListener(new KeyInput(handler));
-		
+		this.addMouseListener(menu);
+
+
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/wizard_level.png");
 		sprite_sheet = loader.loadImage("/sprite_sheet.png");
 		ss= new SpriteSheet(sprite_sheet);
-		
+
 		floor = ss.grabImage(4, 2, 32, 32);
 		this.addMouseListener(new MouseInput(handler,camera,this, ss));
 
-		loadLevel(level);
+
 	}
-	
+
 	private void start() {
 		isRunning = true;
 		thread = new Thread(this);
@@ -77,21 +90,28 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer>1000) {
 				timer+= 1000;
-			//	System.out.println("FPS: "+frames);
+				//	System.out.println("FPS: "+frames);
 				frames = 0;
 			}
 		}
 		stop();
 	}
-	
+
 	public void tick() {
-		for(int i=0; i<handler.object.size();i++) {
-			if(handler.object.get(i).getId() == ID.player) {
-				camera.tick(handler.object.get(i));
+		if(gameState==STATE.Game) {
+			for(int i=0; i<handler.object.size();i++) {
+				if(handler.object.get(i).getId() == ID.player) {
+					camera.tick(handler.object.get(i));
+				}
+			}
+			handler.tick();
+
+			hud.tick();
+		}else {
+			if(gameState==STATE.Menu) {
+				menu.tick();
 			}
 		}
-		handler.tick();
-		hud.tick();
 	}
 
 	public void render() {
@@ -102,12 +122,12 @@ public class Game extends Canvas implements Runnable{
 		}
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
-		
+
 		////
-	
-		
+
+
 		g2d.translate(-camera.getX(), -camera.getY());
-			
+
 		for (int xx = 0; xx < 32*72 ; xx+=32) {
 			for (int yy = 0; yy < 32*72 ; yy+=32) {
 				g.drawImage(floor, xx, yy, null);
@@ -116,20 +136,27 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 
 		g2d.translate(camera.getX(), camera.getY());
-		hud.render(g);
-		Font fnt = new Font("Courier",1,20);
-		g.setFont(fnt);
-		g.setColor(Color.black);
-		g.drawString("Ammo: "+ammo,840,35);
+		if(gameState==STATE.Game) {
+
+			hud.render(g);
+
+			Font fnt = new Font("Courier",1,20);
+			g.setFont(fnt);
+			g.setColor(Color.white);
+			g.drawString("Ammo: "+ammo,240,35);
+		}else if(gameState==STATE.Menu || gameState==STATE.Help) {
+				menu.render(g);
+		}
 		////
-		
+
 		g.dispose();
 		bs.show();
 	}
 	//loading the level
-	private void loadLevel(BufferedImage image) {
+	public void loadLevel(BufferedImage image) {
 		int w = image.getWidth();
 		int h = image.getHeight();
+
 		for(int xx=0;xx<w;xx++) {
 			for(int yy=0;yy<h;yy++) {
 				int pixel = image.getRGB(xx, yy);
@@ -147,7 +174,8 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
-	
+
+
 	public static int clamp(int var, int min, int max) {
 		if(var >= max) return var = max;
 		else if(var<=min) return var = min;
