@@ -120,7 +120,7 @@ public class Game extends Canvas implements Runnable{
 		Font fnt = new Font("Courier",1,20);
 		g.setFont(fnt);
 		g.setColor(Color.black);
-		g.drawString("Ammo: "+ammo,240,35);
+		g.drawString("Ammo: "+ammo,840,35);
 		////
 		
 		g.dispose();
