@@ -37,13 +37,13 @@ public class Game extends Canvas implements Runnable{
 	public enum STATE {
 		Menu,
 		Help,
-		Game,
-		init
+		init,
+		Game
 	};
 	public STATE gameState=STATE.Menu;
 
 	public Game() {
-		new Window(WIDTH,HEIGHT,"GAME",this);
+		new Window(WIDTH,HEIGHT,"DandiesGame",this);
 		start();
 		
 		menu=new Menu(this);
@@ -56,6 +56,7 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		camera = new Camera(0,0);
+		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		//level = loader.loadImage("/wizard_level.png");
 		level = loader.loadImage("/dandies_level2.png");
