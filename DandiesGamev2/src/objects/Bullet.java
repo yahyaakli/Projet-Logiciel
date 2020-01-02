@@ -9,7 +9,7 @@ import graphics.SpriteSheet;
 public class Bullet extends GameObject{
 
 	private Handler handler;
-	public Bullet(int x, int y, ID id, Handler handler,int mx, int my,  SpriteSheet ss) {
+	public Bullet(float x, float y, ID id, Handler handler,int mx, int my,  SpriteSheet ss) {
 		super(x,y,id, ss);
 		this.handler = handler;
 		velX=(mx-x)/10;
@@ -31,10 +31,10 @@ public class Bullet extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.green);
-		g.fillOval(x, y, 8, 8);
+		g.fillOval((int)x, (int)y, 8, 8);
 	}
 	@Override
 	public Rectangle getbounds() {
-		return new Rectangle(x,y,8,8);
+		return new Rectangle((int)x,(int)y,8,8);
 	}
 }	

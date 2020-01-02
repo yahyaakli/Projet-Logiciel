@@ -21,12 +21,12 @@ public class Wall  extends GameObject {
 
 	
 	public void render(Graphics g) {
-		g.drawImage(wall_image, x, y, null);
+		g.drawImage(wall_image, (int)x,(int) y, null);
 		
 	}
 
 	public Rectangle getbounds() {
-		return new Rectangle(x,y,32,32);
+		return new Rectangle((int)x,(int)y,32,32);
 	}
 
 }

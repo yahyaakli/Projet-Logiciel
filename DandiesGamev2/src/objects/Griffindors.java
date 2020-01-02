@@ -51,13 +51,13 @@ public class Griffindors extends GameObject{
 		
 	}
 	public void render(Graphics g) {
-		g.drawImage(griffindors_image, x, y, null);
+		g.drawImage(griffindors_image,(int) x, (int)y, null);
 		
 	}
 	public Rectangle getbounds() {
-		return new Rectangle(x,y,32,32);
+		return new Rectangle((int)x,(int)y,32,32);
 	}
 	public Rectangle getboundsBig() {
-		return new Rectangle(x-16,y-16,64,64);
+		return new Rectangle((int)(x)-16,(int)(y)-16,64,64);
 	}
 }	

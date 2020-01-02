@@ -21,11 +21,11 @@ public class Crate extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(crate_image, x, y, null);
+		g.drawImage(crate_image, (int)x,(int) y, null);
 	}
 
 	public Rectangle getbounds() {
-		return new Rectangle(x, y, 32, 32);
+		return new Rectangle((int)x, (int)y, 32, 32);
 	}
 
 }

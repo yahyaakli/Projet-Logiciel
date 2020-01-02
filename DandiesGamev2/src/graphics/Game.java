@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import graphics.Game.STATE;
 import objects.*;
 
 public class Game extends Canvas implements Runnable{
@@ -25,36 +26,43 @@ public class Game extends Canvas implements Runnable{
 	private HUD hud;
 	public int ammo = 0;
 	private Menu menu;
-    
-	
+
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = 563;
+
 	public enum STATE {
 		Menu,
 		Help,
-		Game
+		Game,
+		init
 	};
 	public STATE gameState=STATE.Menu;
 
 	public Game() {
-		new Window(1000,563,"GAME",this);
+		new Window(WIDTH,HEIGHT,"GAME",this);
 		start();
-		hud=new HUD();
-		handler = new Handler();
-		camera = new Camera(0,0);
-		menu=new Menu(this, handler);
-		this.addKeyListener(new KeyInput(handler));
+
+		menu=new Menu(this);
+
 		this.addMouseListener(menu);
 
+	}
+	public void init_game() {
 
+		hud=new HUD();
+		handler = new Handler();
+		this.addKeyListener(new KeyInput(handler));
+		camera = new Camera(0,0);
 		BufferedImageLoader loader = new BufferedImageLoader();
 		//level = loader.loadImage("/wizard_level.png");
-		level = loader.loadImage("/wizard_level_2.png");
+		level = loader.loadImage("/dandies_level2.png");
 		sprite_sheet = loader.loadImage("/sprite_sheet.png");
 		ss= new SpriteSheet(sprite_sheet);
 
 		floor = ss.grabImage(4, 2, 32, 32);
 		this.addMouseListener(new MouseInput(handler,camera,this, ss));
-
-
+		loadLevel(level);
+		gameState=STATE.Game;
 	}
 
 	private void start() {
@@ -109,9 +117,9 @@ public class Game extends Canvas implements Runnable{
 
 			hud.tick();
 		}else {
-			if(gameState==STATE.Menu) {
-				menu.tick();
-			}
+
+			menu.tick();
+
 		}
 	}
 
@@ -126,27 +134,25 @@ public class Game extends Canvas implements Runnable{
 
 		////
 
-
-		g2d.translate(-camera.getX(), -camera.getY());
-
-		for (int xx = 0; xx < 32*72 ; xx+=32) {
-			for (int yy = 0; yy < 32*72 ; yy+=32) {
-				g.drawImage(floor, xx, yy, null);
-			}
-		}
-		handler.render(g);
-
-		g2d.translate(camera.getX(), camera.getY());
 		if(gameState==STATE.Game) {
+			g2d.translate(-camera.getX(), -camera.getY());
 
+			for (int xx = 0; xx < 32*72 ; xx+=32) {
+				for (int yy = 0; yy < 32*72 ; yy+=32) {
+					g.drawImage(floor, xx, yy, null);
+				}
+			}
+			handler.render(g);
+
+			g2d.translate(camera.getX(), camera.getY());
 			hud.render(g);
 
 			Font fnt = new Font("Courier",1,20);
 			g.setFont(fnt);
 			g.setColor(Color.white);
 			g.drawString("Ammo: "+ammo,240,35);
-		}else if(gameState==STATE.Menu || gameState==STATE.Help) {
-				menu.render(g);
+		}else{
+			menu.render(g);
 		}
 		////
 

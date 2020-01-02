@@ -14,13 +14,9 @@ import objects.*;
 public class Menu extends MouseAdapter{
 
 	private Game game;
-	private Handler handler;
 
-
-
-	public Menu(Game game, Handler handler) {
+	public Menu(Game game) {
 		this.game=game;
-		this.handler=handler;
 	}
 
 
@@ -32,8 +28,8 @@ public class Menu extends MouseAdapter{
 		//Play button
 		if(game.gameState==STATE.Menu) {
 			if(mouseOver(mx,my,400,200,200,64)) {
-				game.gameState=STATE.Game;
-				game.loadLevel(game.level);
+				game.gameState=STATE.init;
+				game.init_game();
 			}
 		}
 		
@@ -78,9 +74,10 @@ public class Menu extends MouseAdapter{
 		if(game.gameState ==STATE.Menu) {
 		Font fnt=new Font("arial",1,50);
 		Font fnt1=new Font("arial",1,30);
-
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		g.setFont(fnt);
-		g.setColor(Color.white);
+		g.setColor(Color.WHITE);
 		g.drawString("Menu", 430, 90);
 
 		g.setFont(fnt1);
@@ -96,9 +93,10 @@ public class Menu extends MouseAdapter{
 		}else if(game.gameState ==STATE.Help) {
 			Font fnt=new Font("arial",1,50);
 			Font fnt1=new Font("arial",1,30);
-
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 			g.setFont(fnt);
-			g.setColor(Color.white);
+			g.setColor(Color.WHITE);
 			g.drawString("Help", 430, 90);
 			
 			g.setFont(fnt1);
@@ -107,6 +105,12 @@ public class Menu extends MouseAdapter{
 			g.setFont(fnt1);
 			g.drawRect(400, 450, 200, 64);
 			g.drawString("Back", 460, 490);
+		}
+		if(game.gameState ==STATE.init) {
+			Font fnt=new Font("Courier",1,50);
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("loading", 400, 170);
 		}
 	}
 

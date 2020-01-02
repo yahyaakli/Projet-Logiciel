@@ -7,12 +7,12 @@ import graphics.SpriteSheet;
 
 public abstract class GameObject {
 	
-	protected int x, y;
+	protected float x, y;
 	protected float velX =0, velY=0;
 	protected ID id;
 	protected SpriteSheet ss;
 	
-	public GameObject(int x, int y, ID id, SpriteSheet ss) {
+	public GameObject(float x, float y, ID id, SpriteSheet ss) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
@@ -31,7 +31,7 @@ public abstract class GameObject {
 	public abstract void render(Graphics g);
 	public abstract Rectangle getbounds();
 
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -39,7 +39,7 @@ public abstract class GameObject {
 		this.x = x;
 	}
 
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 

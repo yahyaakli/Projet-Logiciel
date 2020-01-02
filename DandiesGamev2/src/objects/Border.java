@@ -21,12 +21,12 @@ public class Border extends GameObject {
 
 
 	public void render(Graphics g) {
-		g.drawImage(border_image, x, y, null);
+		g.drawImage(border_image,(int) x, (int)y, null);
 
 	}
 
 	public Rectangle getbounds() {
-		return new Rectangle(x,y,32,32);
+		return new Rectangle((int)x,(int)y,32,32);
 	}
 
 }
