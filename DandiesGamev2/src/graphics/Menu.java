@@ -90,7 +90,13 @@ public class Menu extends MouseAdapter{
 		g.drawRect(400, 400, 200, 64);
 		g.drawString("Quit", 470, 440);
 		
-		}else if(game.gameState ==STATE.Help) {
+		}else if(game.gameState ==STATE.init) {
+			Font fnt=new Font("Courier",1,50);
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("loading", 400, 170);
+		}
+		else if(game.gameState ==STATE.Help) {
 			Font fnt=new Font("arial",1,50);
 			Font fnt1=new Font("arial",1,30);
 			g.setColor(Color.BLACK);
@@ -100,18 +106,20 @@ public class Menu extends MouseAdapter{
 			g.drawString("Help", 430, 90);
 			
 			g.setFont(fnt1);
-			g.drawString("", 100, 100);
+			g.drawString("# Launch the game",60,130);
+			g.drawString("# Move your dandy by using arrow keys",60,180)	;	
+			g.drawString("# Use arms. There are arms scattered on the maze, they will help",60,230)	;		 
+			g.drawString("you hitting your enemies, click on the enemy using the mouse ",60,280);
+			g.drawString("and shoot at him with your best bullet!",60,330);
+			g.drawString("# Avoid ghosts. Avoid differents enemies in the maze. Once you ",60,380)			;
+			g.drawString("reach 0 hit points, it's game over!",60,430);
+		
 			
 			g.setFont(fnt1);
 			g.drawRect(400, 450, 200, 64);
 			g.drawString("Back", 460, 490);
 		}
-		if(game.gameState ==STATE.init) {
-			Font fnt=new Font("Courier",1,50);
-			g.setFont(fnt);
-			g.setColor(Color.WHITE);
-			g.drawString("loading", 400, 170);
-		}
+		
 	}
 
 }
