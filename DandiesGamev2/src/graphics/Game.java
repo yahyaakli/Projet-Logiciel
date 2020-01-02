@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import graphics.Game.STATE;
 import objects.*;
@@ -14,6 +16,7 @@ import objects.*;
 public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = 7666159906818439827L;
+	private static final long pause = 1000000000 / 60;
 	private boolean isRunning = false;
 	private Thread thread;
 	private Handler handler;
@@ -25,6 +28,7 @@ public class Game extends Canvas implements Runnable{
 	private SpriteSheet ss;
 	private HUD hud;
 	public int ammo = 0;
+	private CountDown countdown  ;
 	private Menu menu;
 
 	public static final int WIDTH = 1000;
@@ -41,9 +45,8 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		new Window(WIDTH,HEIGHT,"GAME",this);
 		start();
-
+		
 		menu=new Menu(this);
-
 		this.addMouseListener(menu);
 
 	}
@@ -63,6 +66,8 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(new MouseInput(handler,camera,this, ss));
 		loadLevel(level);
 		gameState=STATE.Game;
+		countdown = new CountDown();
+		countdown.tick();
 	}
 
 	private void start() {
@@ -114,7 +119,6 @@ public class Game extends Canvas implements Runnable{
 				}
 			}
 			handler.tick();
-
 			hud.tick();
 		}else {
 
@@ -151,6 +155,11 @@ public class Game extends Canvas implements Runnable{
 			g.setFont(fnt);
 			g.setColor(Color.white);
 			g.drawString("Ammo: "+ammo,240,35);
+			
+			Font fnt1 = new Font("Courier",1,20);
+			g.setFont(fnt1);
+			g.setColor(Color.white);
+			g.drawString("time left: "+countdown.gettimecounter(),740,35);
 		}else{
 			menu.render(g);
 		}

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class Window {
+	
 	public Window(int width, int height, String Title,Game game) {
 		JFrame frame = new JFrame(Title);
 		frame.setPreferredSize(new Dimension(width,height));
