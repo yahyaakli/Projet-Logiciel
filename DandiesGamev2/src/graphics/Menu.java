@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import graphics.Game.STATE;
 import objects.*;
@@ -14,9 +15,10 @@ import objects.*;
 public class Menu extends MouseAdapter{
 
 	private Game game;
-
+	private BufferedImageLoader loader;
 	public Menu(Game game) {
 		this.game=game;
+		this.loader = new BufferedImageLoader();
 	}
 
 
@@ -82,14 +84,14 @@ public class Menu extends MouseAdapter{
 
 	public void render(Graphics g) {
 		if(game.gameState ==STATE.Menu) {
-			Font fnt=new Font("arial",1,50);
+			BufferedImage logo = loader.loadImage("/dandiesLogo.png");
+			
+			Font fnt=new Font("arial",1,20);
 			Font fnt1=new Font("arial",1,30);
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-			g.setFont(fnt);
+			g.drawImage(logo, 405,50 , null);
 			g.setColor(Color.WHITE);
-			g.drawString("Menu", 430, 90);
-
 			g.setFont(fnt1);
 			g.drawRect(400, 200, 200, 64);
 			g.drawString("Play", 470, 240);
