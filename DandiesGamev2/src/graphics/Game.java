@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable{
 	public STATE gameState=STATE.Menu;
 
 	public Game() {
-		new Window(WIDTH,HEIGHT,"DandiesGame",this);
+		new Window(WIDTH,HEIGHT,"Dandies Game",this);
 		start();
 
 		menu=new Menu(this);
