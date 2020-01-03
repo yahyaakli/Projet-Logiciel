@@ -204,4 +204,5 @@ public class Game extends Canvas implements Runnable{
 		else if(var<=min) return var = min;
 		else return var;
 	}
+	
 }

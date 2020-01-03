@@ -12,7 +12,8 @@ public class Wall  extends GameObject {
 
 	public Wall(int x, int y, ID id, SpriteSheet ss) {
 		super(x, y, id, ss);
-		wall_image = ss.grabImage(5, 2, 32, 32);
+		size=32;
+		wall_image = ss.grabImage(5, 2, size, size);
 	}
 
 	public void tick() {
@@ -26,7 +27,13 @@ public class Wall  extends GameObject {
 	}
 
 	public Rectangle getbounds() {
-		return new Rectangle((int)x,(int)y,32,32);
+		return new Rectangle((int)x,(int)y,size,size);
+	}
+
+	@Override
+	public Rectangle getbounds2() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

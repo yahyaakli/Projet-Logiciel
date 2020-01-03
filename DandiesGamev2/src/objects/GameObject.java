@@ -11,6 +11,7 @@ public abstract class GameObject {
 	protected float velX =0, velY=0;
 	protected ID id;
 	protected SpriteSheet ss;
+	protected int size;
 	
 	public GameObject(float x, float y, ID id, SpriteSheet ss) {
 		this.x = x;
@@ -30,7 +31,8 @@ public abstract class GameObject {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getbounds();
-
+	public abstract Rectangle getbounds2();
+	
 	public float getX() {
 		return x;
 	}

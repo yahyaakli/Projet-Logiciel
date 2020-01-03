@@ -21,7 +21,8 @@ public class Hufflepuffs extends GameObject {
 	public Hufflepuffs(int x, int y, ID id, Handler handler, SpriteSheet ss) {
 		super(x, y, id, ss);
 		this.handler = handler;
-		hufflepuffs_image = ss.grabImage(5, 1, 32, 32);
+		size=32;
+		hufflepuffs_image = ss.grabImage(5, 1, size, size);
 		for(int i=0; i<handler.object.size();i++) {
 			if(handler.object.get(i).getId()==ID.player) {
 				player = handler.object.get(i);
@@ -62,10 +63,13 @@ public class Hufflepuffs extends GameObject {
 		
 	}
 	public Rectangle getbounds() {
-		return new Rectangle((int)x,(int)y,32,32);
+		return new Rectangle((int)x,(int)y,size,size);
+	}
+	public Rectangle getbounds2() {
+		return new Rectangle((int)x-2,(int)y-2,size+4,size+4);
 	}
 	public Rectangle getboundsBig() {
-		return new Rectangle((int)(x)-16,(int)(y)-16,64,64);
+		return new Rectangle((int)(x)-16,(int)(y)-16,2*size,2*size);
 	}
 
 }

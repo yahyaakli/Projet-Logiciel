@@ -20,7 +20,8 @@ public class Griffindors extends GameObject{
 	public Griffindors(int x, int y, ID id, Handler handler,  SpriteSheet ss) {
 		super(x,y,id, ss);
 		this.handler = handler;
-		griffindors_image = ss.grabImage(4, 1, 32, 32);
+		size=32;
+		griffindors_image = ss.grabImage(4, 1, size, size);
 	}
 	public void tick() {
 		x+=velX;
@@ -55,9 +56,12 @@ public class Griffindors extends GameObject{
 		
 	}
 	public Rectangle getbounds() {
-		return new Rectangle((int)x,(int)y,32,32);
+		return new Rectangle((int)x,(int)y,size,size);
+	}
+	public Rectangle getbounds2() {
+		return new Rectangle((int)x-2,(int)y-2,size+4,size+4);
 	}
 	public Rectangle getboundsBig() {
-		return new Rectangle((int)(x)-16,(int)(y)-16,64,64);
+		return new Rectangle((int)(x)-16,(int)(y)-16,2*size,2*size);
 	}
 }	

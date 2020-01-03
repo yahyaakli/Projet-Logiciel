@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.lang.Math;
 
 import graphics.Game;
 import graphics.Game.STATE;
@@ -23,7 +24,8 @@ public class Hero extends GameObject{
 		this.handler = handler;
 		this.hud = hud;
 		this.game = game;
-		hero_image = ss.grabImage(1, 1, 32, 48);
+		size=32;
+		hero_image = ss.grabImage(1, 1, size, 48);
 	}
 
 	public void tick() {
@@ -53,12 +55,32 @@ public class Hero extends GameObject{
 			GameObject tempObject = handler.object.get(i);
 			if(tempObject.getId() == ID.wall || tempObject.getId() == ID.border || tempObject.getId() == ID.griffindors || tempObject.getId() == ID.hufflepuffs) {
 				if(getbounds().intersects(tempObject.getbounds())) {
-					x+= velX*-1;
-					y+= velY*-1;
+					
+					float[] pos={x,y};
+					float[] limit={tempObject.x,tempObject.y,tempObject.x+tempObject.size,tempObject.y+tempObject.size};
+					pos = clamp2D(pos , limit );
+					x=pos[0];
+					y=pos[1];
+					
+					pos[0] +=size;
+					pos = clamp2D(pos , limit );
+					x=pos[0]-size;
+					y=pos[1];
+					
+					pos[1]+=size;
+					pos = clamp2D(pos , limit );
+					x=pos[0]-size;
+					y=pos[1]-size;
+					
+					pos[0]-=size;
+					pos = clamp2D(pos , limit );
+					x=pos[0];
+					y=pos[1]-size;
+					
 				}
 			}
 			if(tempObject.getId() == ID.griffindors || tempObject.getId() == ID.hufflepuffs) {
-				if(getbounds().intersects(tempObject.getbounds())) {
+				if(getbounds().intersects(tempObject.getbounds2())) {
 					hud.HP--;
 				}	
 			}
@@ -71,12 +93,36 @@ public class Hero extends GameObject{
 			}
 		}
 	}
+	public float[] clamp2D(float[] pos, float[] limit) {
+		
+		if ((pos[1]-limit[1])*(pos[1]-limit[3])<0) {
+			
+			if ((pos[0]-limit[0])*(pos[0]-limit[2])<0) {
+				
+				if (Math.abs(pos[0]-limit[0])<Math.abs(pos[0]-limit[2])) pos[0]=limit[0]-1;
+				else pos[0]=limit[2]+1;
+				
+				if (Math.abs(pos[1]-limit[1])<Math.abs(pos[1]-limit[3])) pos[1]=limit[1]-1;
+
+				else pos[1]=limit[3]+1;
+				
+			}
+		}
+					
+		return pos;
+	}
 	public void render(Graphics g) {
 		g.drawImage(hero_image, (int)x, (int)y, null);
 	}
 
 	public Rectangle getbounds() {
-		return new Rectangle((int)x,(int)y,32,32);
+		return new Rectangle((int)x,(int)y,size,size);
+	}
+
+	@Override
+	public Rectangle getbounds2() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
