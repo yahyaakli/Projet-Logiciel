@@ -8,9 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-import com.sun.glass.ui.EventLoop.State;
-
-import graphics.Game.STATE;
 import objects.*;
 
 public class Game extends Canvas implements Runnable{
@@ -201,11 +198,6 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 
-	private boolean iswin() {
-		boolean etat = true;
-
-		return etat;
-	}
 
 	public static int clamp(int var, int min, int max) {
 		if(var >= max) return var = max;

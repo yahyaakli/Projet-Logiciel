@@ -23,8 +23,8 @@ public class Menu extends MouseAdapter{
 	public void mousePressed(MouseEvent e) {
 		int mx =e.getX();
 		int my=e.getY();
-		
-		
+
+
 		//Play button
 		if(game.gameState==STATE.Menu) {
 			if(mouseOver(mx,my,400,200,200,64)) {
@@ -32,22 +32,32 @@ public class Menu extends MouseAdapter{
 				game.init_game();
 			}
 		}
-		
+
 		//Quit button
 		if(mouseOver(mx,my,400,400,200,64)) {
 			System.exit(1);
 		}
-		
+
 		//Help button
 		if(game.gameState==STATE.Menu) {
 			if(mouseOver(mx,my,400,300,200,64)) {
 				game.gameState=STATE.Help;
+			}
 		}
-		}
-		
+
 		//Back button for help
 		if(game.gameState==STATE.Help) {
 			if(mouseOver(mx,my,400,450,200,64)) {
+				game.gameState=STATE.Menu;
+			}
+		}
+
+		if(game.gameState==STATE.GameOver) {
+			if(mouseOver(mx,my,380, 260, 240, 64)) {
+				game.gameState=STATE.init;
+				game.init_game();
+			}
+			if (mouseOver(mx,my,380, 360, 240, 64)) {
 				game.gameState=STATE.Menu;
 			}
 		}
@@ -72,24 +82,24 @@ public class Menu extends MouseAdapter{
 
 	public void render(Graphics g) {
 		if(game.gameState ==STATE.Menu) {
-		Font fnt=new Font("arial",1,50);
-		Font fnt1=new Font("arial",1,30);
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.setFont(fnt);
-		g.setColor(Color.WHITE);
-		g.drawString("Menu", 430, 90);
+			Font fnt=new Font("arial",1,50);
+			Font fnt1=new Font("arial",1,30);
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("Menu", 430, 90);
 
-		g.setFont(fnt1);
-		g.drawRect(400, 200, 200, 64);
-		g.drawString("Play", 470, 240);
+			g.setFont(fnt1);
+			g.drawRect(400, 200, 200, 64);
+			g.drawString("Play", 470, 240);
 
-		g.drawRect(400, 300, 200, 64);
-		g.drawString("Help", 470, 340);
+			g.drawRect(400, 300, 200, 64);
+			g.drawString("Help", 470, 340);
 
-		g.drawRect(400, 400, 200, 64);
-		g.drawString("Quit", 470, 440);
-		
+			g.drawRect(400, 400, 200, 64);
+			g.drawString("Quit", 470, 440);
+
 		}else if(game.gameState ==STATE.init) {
 			Font fnt=new Font("Courier",1,50);
 			g.setFont(fnt);
@@ -104,7 +114,7 @@ public class Menu extends MouseAdapter{
 			g.setFont(fnt);
 			g.setColor(Color.WHITE);
 			g.drawString("Help", 430, 90);
-			
+
 			g.setFont(fnt1);
 			g.drawString("# Launch the game",60,130);
 			g.drawString("# Move your dandy by using arrow keys",60,180)	;	
@@ -113,20 +123,31 @@ public class Menu extends MouseAdapter{
 			g.drawString("and shoot at him with your best bullet!",60,330);
 			g.drawString("# Avoid ghosts. Avoid differents enemies in the maze. Once you ",60,380)			;
 			g.drawString("reach 0 hit points, it's game over!",60,430);
-		
-			
+
+
 			g.setFont(fnt1);
 			g.drawRect(400, 450, 200, 64);
 			g.drawString("Back", 460, 490);
 		}
 		else if(game.gameState ==STATE.GameOver) {
-			
-			Font fnt=new Font("Courier",1,50);
+
+			Font fnt=new Font("arial",1,50);
+			Font fnt1=new Font("arial",1,30);
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 			g.setFont(fnt);
 			g.setColor(Color.WHITE);
-			g.drawString("GameOver", 400, 250);
+			g.drawString("Game Over", 370, 150);
+
+			g.setFont(fnt1);
+			g.drawRect(380, 260, 240, 64);
+			g.drawString("Recommencer", 400, 300);
+
+			g.drawRect(380, 360, 240, 64);
+			g.drawString("Retour", 450, 400);
+
 		}
-		
+
 	}
 
 }

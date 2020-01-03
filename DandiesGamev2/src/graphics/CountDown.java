@@ -8,7 +8,7 @@ public class CountDown {
 	private int timecounter;
 	private Timer time;
 	public CountDown() {
-		this.timecounter = 5;
+		this.timecounter = 61;
 		 
 	}
 	
