@@ -7,8 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import com.sun.glass.ui.EventLoop.State;
 
 import graphics.Game.STATE;
 import objects.*;
@@ -16,7 +16,6 @@ import objects.*;
 public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = 7666159906818439827L;
-	private static final long pause = 1000000000 / 60;
 	private boolean isRunning = false;
 	private Thread thread;
 	private Handler handler;
@@ -28,8 +27,9 @@ public class Game extends Canvas implements Runnable{
 	private SpriteSheet ss;
 	private HUD hud;
 	public int ammo = 0;
-	private CountDown countdown  ;
+	public CountDown countdown  ;
 	private Menu menu;
+	//private String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
 
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 563;
@@ -38,6 +38,7 @@ public class Game extends Canvas implements Runnable{
 		Menu,
 		Help,
 		init,
+		GameOver,
 		Game
 	};
 	public STATE gameState=STATE.Menu;
@@ -45,7 +46,7 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		new Window(WIDTH,HEIGHT,"DandiesGame",this);
 		start();
-		
+
 		menu=new Menu(this);
 		this.addMouseListener(menu);
 
@@ -56,7 +57,7 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		camera = new Camera(0,0);
-		
+
 		BufferedImageLoader loader = new BufferedImageLoader();
 		//level = loader.loadImage("/wizard_level.png");
 		level = loader.loadImage("/dandies_level2.png");
@@ -69,6 +70,9 @@ public class Game extends Canvas implements Runnable{
 		gameState=STATE.Game;
 		countdown = new CountDown();
 		countdown.tick();
+		
+
+
 	}
 
 	private void start() {
@@ -117,6 +121,7 @@ public class Game extends Canvas implements Runnable{
 			for(int i=0; i<handler.object.size();i++) {
 				if(handler.object.get(i).getId() == ID.player) {
 					camera.tick(handler.object.get(i));
+					
 				}
 			}
 			handler.tick();
@@ -156,7 +161,7 @@ public class Game extends Canvas implements Runnable{
 			g.setFont(fnt);
 			g.setColor(Color.white);
 			g.drawString("Ammo: "+ammo,240,35);
-			
+
 			Font fnt1 = new Font("Courier",1,20);
 			g.setFont(fnt1);
 			g.setColor(Color.white);
@@ -196,6 +201,11 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 
+	private boolean iswin() {
+		boolean etat = true;
+
+		return etat;
+	}
 
 	public static int clamp(int var, int min, int max) {
 		if(var >= max) return var = max;

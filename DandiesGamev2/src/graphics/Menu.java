@@ -119,6 +119,13 @@ public class Menu extends MouseAdapter{
 			g.drawRect(400, 450, 200, 64);
 			g.drawString("Back", 460, 490);
 		}
+		else if(game.gameState ==STATE.GameOver) {
+			
+			Font fnt=new Font("Courier",1,50);
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("GameOver", 400, 250);
+		}
 		
 	}
 

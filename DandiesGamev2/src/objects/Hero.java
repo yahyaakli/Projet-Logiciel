@@ -43,9 +43,9 @@ public class Hero extends GameObject{
 		if(handler.isLeft()) velX = -speed;
 		else if(!handler.isRight()) velX = 0;
 		
-		if(hud.HP == 0) {
+		if(hud.HP == 0 || game.countdown.gettimecounter() == -1) {
 			handler.removeObject(this);
-			game.gameState = STATE.Menu;
+			game.gameState = STATE.GameOver;
 		}
 	}
 	private void collision() {
