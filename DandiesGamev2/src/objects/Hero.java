@@ -82,6 +82,8 @@ public class Hero extends GameObject{
 			if(tempObject.getId() == ID.griffindors || tempObject.getId() == ID.hufflepuffs) {
 				if(getbounds().intersects(tempObject.getbounds2())) {
 					hud.HP--;
+					tempObject.velX=0;
+					tempObject.velY=0;
 				}	
 			}
 			
@@ -95,16 +97,16 @@ public class Hero extends GameObject{
 	}
 	public float[] clamp2D(float[] pos, float[] limit) {
 		
-		if ((pos[1]-limit[1])*(pos[1]-limit[3])<0) {
+		if ((pos[1]-limit[1])*(pos[1]-limit[3])<=0) {
 			
-			if ((pos[0]-limit[0])*(pos[0]-limit[2])<0) {
+			if ((pos[0]-limit[0])*(pos[0]-limit[2])<=0) {
 				
 				if (Math.abs(pos[0]-limit[0])<Math.abs(pos[0]-limit[2])) pos[0]=limit[0]-1;
-				else pos[0]=limit[2]+1;
+				else pos[0]=limit[2];
 				
 				if (Math.abs(pos[1]-limit[1])<Math.abs(pos[1]-limit[3])) pos[1]=limit[1]-1;
 
-				else pos[1]=limit[3]+1;
+				else pos[1]=limit[3];
 				
 			}
 		}

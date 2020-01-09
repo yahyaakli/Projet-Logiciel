@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable{
 	private Camera camera;
 	private SpriteSheet ss;
 	private HUD hud;
-	public int ammo = 0;
+	public int ammo;
 	public CountDown countdown  ;
 	private Menu menu;
 	//private String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
@@ -49,7 +49,7 @@ public class Game extends Canvas implements Runnable{
 
 	}
 	public void init_game() {
-
+		ammo=0;
 		hud=new HUD();
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
