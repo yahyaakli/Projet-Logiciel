@@ -7,5 +7,6 @@ public enum ID {
 	crate(),
 	bullet(),
 	hufflepuffs(),
-	griffindors();
+	griffindors(),
+	medikit();
 }
