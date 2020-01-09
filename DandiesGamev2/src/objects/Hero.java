@@ -93,6 +93,13 @@ public class Hero extends GameObject{
 					handler.removeObject(tempObject);
 				}	
 			}
+			if ( tempObject.getId() == ID.medikit) {
+				if(getbounds().intersects(tempObject.getbounds())) {
+					hud.HP += 20;
+					handler.removeObject(tempObject);
+					game.clamp(hud.HP,0,100);
+				}	
+			}
 		}
 	}
 	public float[] clamp2D(float[] pos, float[] limit) {

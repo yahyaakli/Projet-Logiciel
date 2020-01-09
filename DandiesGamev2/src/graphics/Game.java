@@ -194,6 +194,9 @@ public class Game extends Canvas implements Runnable{
 					handler.addObject(new Hufflepuffs(xx*32,yy*32,ID.hufflepuffs,handler, ss));
 				if (red == 0 && blue == 255 && green == 255)
 					handler.addObject(new Crate(xx*32, yy*32, ID.crate, ss));
+				if (red==255 && blue==255 && green==255)
+					handler.addObject(new Medikit(xx*32, yy*32, ID.medikit, ss));
+				
 			}
 		}
 	}
