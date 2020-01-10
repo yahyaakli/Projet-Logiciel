@@ -24,6 +24,7 @@ public class Game extends Canvas implements Runnable{
 	private SpriteSheet ss;
 	private HUD hud;
 	public int ammo;
+	
 	public CountDown countdown  ;
 	private Menu menu;
 	//private String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
@@ -50,6 +51,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	public void init_game() {
 		ammo=0;
+		
 		hud=new HUD();
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
@@ -158,6 +160,7 @@ public class Game extends Canvas implements Runnable{
 			g.setFont(fnt);
 			g.setColor(Color.white);
 			g.drawString("Ammo: "+ammo,240,35);
+			
 
 			Font fnt1 = new Font("Courier",1,20);
 			g.setFont(fnt1);

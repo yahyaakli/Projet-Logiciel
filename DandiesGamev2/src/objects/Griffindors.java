@@ -45,12 +45,17 @@ public class Griffindors extends GameObject{
 				if(getboundsBig().intersects(tempObject.getbounds())){
 					hp-=50;
 					handler.removeObject(tempObject);
+					
 				}
 			}
 		}
-		if(hp<=0) handler.removeObject(this);
+		if(hp<=0) {
+			handler.removeObject(this);
+			HUD.score+=100;
+		}
+		}
 		
-	}
+	
 	public void render(Graphics g) {
 		g.drawImage(griffindors_image,(int) x, (int)y, null);
 		

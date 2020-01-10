@@ -51,10 +51,14 @@ public class Hufflepuffs extends GameObject {
 				if(getboundsBig().intersects(tempObject.getbounds())){
 					hp-=20;
 					handler.removeObject(tempObject);
+					
 				}
 			}
 		}
-		if(hp<=0) handler.removeObject(this);
+		if(hp<=0) {
+			handler.removeObject(this);
+			HUD.score+=100;
+		}
 	}
 
 	

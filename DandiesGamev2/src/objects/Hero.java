@@ -50,6 +50,7 @@ public class Hero extends GameObject{
 			game.gameState = STATE.GameOver;
 		}
 	}
+	
 	private void collision() {
 		for(int i=0;i<handler.object.size();i++) {
 			GameObject tempObject = handler.object.get(i);

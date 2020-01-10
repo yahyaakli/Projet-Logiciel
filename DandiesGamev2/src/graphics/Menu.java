@@ -135,18 +135,23 @@ public class Menu extends MouseAdapter{
 
 			Font fnt=new Font("arial",1,50);
 			Font fnt1=new Font("arial",1,30);
+			Font fnt2=new Font("arial",1,20);
+			
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 			g.setFont(fnt);
 			g.setColor(Color.WHITE);
 			g.drawString("Game Over", 370, 150);
+			g.setFont(fnt2);
+			g.setColor(Color.WHITE);
+			g.drawString("You lost with a score of "+HUD.score+" !", 380, 200);
 
 			g.setFont(fnt1);
 			g.drawRect(380, 260, 240, 64);
-			g.drawString("Recommencer", 400, 300);
+			g.drawString("Try again", 430, 300);
 
 			g.drawRect(380, 360, 240, 64);
-			g.drawString("Retour", 450, 400);
+			g.drawString("Back", 460, 400);
 
 		}
 
