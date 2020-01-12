@@ -46,8 +46,8 @@ public class Hero extends GameObject{
 
 		if(handler.isLeft()) velX = -speed;
 		else if(!handler.isRight()) velX = 0;
-
-		if(hud.HP == 0 || game.countdown.gettimecounter() == -1) {
+		
+		if(hud.HP == 0 || game.countdown.gettimecounter() == 0) {
 			handler.removeObject(this);
 			game.gameState = STATE.GameOver;
 		}
@@ -140,5 +140,7 @@ public class Hero extends GameObject{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }

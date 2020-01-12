@@ -76,9 +76,6 @@ public class Game extends Canvas implements Runnable{
 		gameState=STATE.Game;
 		countdown = new CountDown(this);
 		countdown.tick();
-
-
-
 	}
 
 	private void start() {
@@ -133,9 +130,9 @@ public class Game extends Canvas implements Runnable{
 			handler.tick();
 			if (handler.isPause())gameState=STATE.Pause;
 			hud.tick();
-			if (win()) {
-				gameState =STATE.win;
-			}
+			if (win()==0) gameState =STATE.win; 
+
+
 		}
 		else if (gameState==STATE.Pause) {
 			pause.tick();
@@ -223,22 +220,16 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
-
-	private boolean win() {
+	private int win() {
 		int s=0;
-		for(int i=0;i<handler.object.size();i++) {
-			GameObject tempObject = handler.object.get(i);
+		for(GameObject tempObject : handler.object) {
 			if(tempObject.getId()==ID.griffindors || tempObject.getId()==ID.hufflepuffs) {
 				s++;
 			}
 		}
-		if (s==0) {
-			return true;
-		} 
-		else {
-			return false;
-		}
+		return s;
 	}
+
 
 	public static int clamp(int var, int min, int max) {
 		if(var >= max) return var = max;
