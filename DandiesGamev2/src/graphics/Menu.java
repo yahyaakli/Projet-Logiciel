@@ -154,6 +154,25 @@ public class Menu extends MouseAdapter{
 			g.drawString("Back", 460, 400);
 
 		}
+		else if(game.gameState ==STATE.win) {
+			Font fnt=new Font("arial",1,50);
+			Font fnt1=new Font("arial",1,30);
+			
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("WIN", 370, 150);
+			
+
+			g.setFont(fnt1);
+			g.drawRect(380, 260, 240, 64);
+			g.drawString("Play again", 430, 300);
+
+			g.drawRect(380, 360, 240, 64);
+			g.drawString("Back", 460, 400);
+		}
+		
 
 	}
 
