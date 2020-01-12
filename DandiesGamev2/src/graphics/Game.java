@@ -45,10 +45,11 @@ public class Game extends Canvas implements Runnable{
 
 	public Game() {
 		new Window(WIDTH,HEIGHT,"Dandies Game",this);
-		start();
-
 		menu=new Menu(this);
 		pause = new Pause(this);
+		
+		start();
+		
 		this.addMouseListener(menu);
 		this.addMouseListener(pause);
 

@@ -1,33 +1,73 @@
-<project name="DandiesGamev2" basedir="." default="main">
-
-    <property name="src.dir"     value="src"/>
-
-    <property name="build.dir"   value="build"/>
-    <property name="classes.dir" value="${build.dir}/classes"/>
-    <property name="jar.dir"     value="${build.dir}/jar"/>
-
-    <property name="main-class"  value="game.main.DandiesGamev2"/>
 
 
-    <target name="compile">
-        <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
-    </target>
+<project default="main" basedir="." name="DandiesGamev2">
 
-    <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="${main-class}"/>
-            </manifest>
-        </jar>
-    </target>
+<property name="src.dir" value="src"/>
 
-    <target name="run" depends="jar">
-        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
-    </target>
+<property name="build.dir" value="build"/>
+
+<property name="classes.dir" value="${build.dir}/classes"/>
+
+<property name="jar.dir" value="${build.dir}/jar"/>
+
+<property name="main-class" value="game.main.DandiesGamev2"/>
 
 
-    <target name="main" depends="run"/>
+<target name="clean">
+
+<delete dir="${build.dir}"/>
+
+</target>
+
+
+<target name="compile">
+
+<mkdir dir="${classes.dir}"/>
+
+
+<copy todir="${classes.dir}">
+
+
+<fileset dir="src">
+
+<exclude name="**/*.java"/>
+
+</fileset>
+
+</copy>
+
+<javac destdir="${classes.dir}" srcdir="${src.dir}"/>
+
+</target>
+
+
+<target name="jar" depends="compile">
+
+<mkdir dir="${jar.dir}"/>
+
+
+<jar basedir="${classes.dir}" destfile="${jar.dir}/${ant.project.name}.jar">
+
+
+<manifest>
+
+<attribute name="Main-Class" value="${main-class}"/>
+
+</manifest>
+
+</jar>
+
+</target>
+
+
+<target name="run" depends="jar">
+
+<java fork="true" jar="${jar.dir}/${ant.project.name}.jar"/>
+
+</target>
+
+<target name="clean-build" depends="clean,jar"/>
+
+<target name="main" depends="clean,run"/>
 
 </project>
