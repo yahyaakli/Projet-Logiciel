@@ -92,7 +92,7 @@ public class Pause extends MouseAdapter{
 			g.setColor(Color.WHITE);
 			g.setFont(fnt1);
 			g.drawRect(400, 200, 200, 64);
-			g.drawString("Resume", 470, 240);
+			g.drawString("Resume", 445, 240);
 
 			g.drawRect(400, 300, 200, 64);
 			g.drawString("Help", 470, 340);
