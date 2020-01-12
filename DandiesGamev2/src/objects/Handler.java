@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class Handler {
 	
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
-	private boolean up = false, down = false, right=false, left=false;
+	private boolean up = false, down = false, right=false, left=false, pause=false;
 	public boolean isUp() {
 		return up;
 	}
@@ -30,6 +30,12 @@ public class Handler {
 	}
 	public void setLeft(boolean left) {
 		this.left = left;
+	}
+	public boolean isPause() {
+		return pause;
+	}
+	public void setPause(boolean pause) {
+		this.pause = pause;
 	}
 	public void tick() {
 		for(int i=0;i<object.size();i++) {

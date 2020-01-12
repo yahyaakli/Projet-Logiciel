@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public CountDown countdown  ;
 	private Menu menu;
+	private Pause pause;
 	//private String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
 
 	public static final int WIDTH = 1000;
@@ -37,6 +38,7 @@ public class Game extends Canvas implements Runnable{
 		Help,
 		init,
 		GameOver,
+		Pause,
 		Game
 	};
 	public STATE gameState=STATE.Menu;
@@ -46,7 +48,9 @@ public class Game extends Canvas implements Runnable{
 		start();
 
 		menu=new Menu(this);
+		pause = new Pause(this);
 		this.addMouseListener(menu);
+		this.addMouseListener(pause);
 
 	}
 	public void init_game() {
@@ -67,7 +71,7 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(new MouseInput(handler,camera,this, ss));
 		loadLevel(level);
 		gameState=STATE.Game;
-		countdown = new CountDown();
+		countdown = new CountDown(this);
 		countdown.tick();
 		
 
@@ -124,8 +128,13 @@ public class Game extends Canvas implements Runnable{
 				}
 			}
 			handler.tick();
+			if (handler.isPause())gameState=STATE.Pause;
 			hud.tick();
-		}else {
+		}
+		else if (gameState==STATE.Pause) {
+			pause.tick();
+		}
+		else{
 
 			menu.tick();
 
@@ -166,7 +175,11 @@ public class Game extends Canvas implements Runnable{
 			g.setFont(fnt1);
 			g.setColor(Color.white);
 			g.drawString("time left: "+countdown.gettimecounter(),740,35);
-		}else{
+		}
+		else if (gameState==STATE.Pause){
+			pause.render(g);
+		}
+		else{
 			menu.render(g);
 		}
 		////
