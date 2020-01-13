@@ -13,7 +13,6 @@ import objects.*;
 
 
 public class Menu extends MouseAdapter{
-
 	private Game game;
 	private BufferedImageLoader loader;
 	public Menu(Game game) {
@@ -31,7 +30,7 @@ public class Menu extends MouseAdapter{
 		if(game.gameState==STATE.Menu) {
 			if(mouseOver(mx,my,400,200,200,64)) {
 				game.gameState=STATE.init;
-				game.init_game();
+				game.init_game(game.niveaux[0]);
 			}
 		}
 
@@ -57,9 +56,24 @@ public class Menu extends MouseAdapter{
 		if(game.gameState==STATE.GameOver) {
 			if(mouseOver(mx,my,380, 260, 240, 64)) {
 				game.gameState=STATE.init;
-				game.init_game();
+				game.init_game(game.niveaux[game.position]);
 			}
 			if (mouseOver(mx,my,380, 360, 240, 64)) {
+				game.gameState=STATE.Menu;
+			}
+		}
+		
+		if (game.gameState == STATE.win) {
+			if (mouseOver(mx,my,380, 260, 240, 64)) {
+				game.gameState=STATE.init;
+				game.position++;
+				game.init_game(game.niveaux[game.position]);
+			}
+			if (mouseOver(mx,my,380, 360, 240, 64)) {
+				game.gameState=STATE.init;
+				game.init_game(game.niveaux[game.position]);
+			}
+			if (mouseOver(mx,my,380, 460, 240, 64)) {
 				game.gameState=STATE.Menu;
 			}
 		}
@@ -167,9 +181,12 @@ public class Menu extends MouseAdapter{
 
 			g.setFont(fnt1);
 			g.drawRect(380, 260, 240, 64);
-			g.drawString("Play again", 430, 300);
+			g.drawString("Next level", 430, 300);
 
 			g.drawRect(380, 360, 240, 64);
+			g.drawString("Play again", 460, 400);
+			
+			g.drawRect(380, 460, 240, 64);
 			g.drawString("Back", 460, 400);
 		}
 		

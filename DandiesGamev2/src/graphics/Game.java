@@ -29,7 +29,8 @@ public class Game extends Canvas implements Runnable{
 	public CountDown countdown  ;
 	private Menu menu;
 	private Pause pause;
-	private String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
+	String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
+	int position=0;
 
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 563;
@@ -56,7 +57,7 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(pause);
 
 	}
-	public void init_game() {
+	public void init_game(String niveau) {
 		ammo=0;
 
 		hud=new HUD();
@@ -66,7 +67,7 @@ public class Game extends Canvas implements Runnable{
 
 		BufferedImageLoader loader = new BufferedImageLoader();
 		//level = loader.loadImage("/wizard_level.png");
-		level = loader.loadImage("/dandies_level2.png");
+		level = loader.loadImage(niveau);
 		sprite_sheet = loader.loadImage("/sprite_sheet.png");
 		ss= new SpriteSheet(sprite_sheet);
 
