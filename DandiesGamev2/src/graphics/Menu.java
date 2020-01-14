@@ -7,6 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import com.sun.glass.ui.EventLoop.State;
+
 import graphics.Game.STATE;
 import objects.*;
 
@@ -62,7 +64,7 @@ public class Menu extends MouseAdapter{
 				game.gameState=STATE.Menu;
 			}
 		}
-		
+
 		if (game.gameState == STATE.win) {
 			if (mouseOver(mx,my,380, 160, 240, 64)) {
 				game.gameState=STATE.init;
@@ -76,7 +78,19 @@ public class Menu extends MouseAdapter{
 			if (mouseOver(mx,my,380, 360, 240, 64)) {
 				game.gameState=STATE.Menu;
 			}
+
+		}
+		
+		if (game.gameState == STATE.Finish) {
 			
+			if (mouseOver(mx,my,380, 200, 240, 64)) {
+				game.gameState=STATE.init;
+				game.init_game(game.niveaux[game.position]);
+			}
+			if (mouseOver(mx,my,380, 300, 240, 64)) {
+				game.gameState=STATE.Menu;
+			}
+
 		}
 	}
 
@@ -100,7 +114,7 @@ public class Menu extends MouseAdapter{
 	public void render(Graphics g) {
 		if(game.gameState ==STATE.Menu) {
 			BufferedImage logo = loader.loadImage("/dandiesLogo.png");
-			
+
 			Font fnt=new Font("arial",1,20);
 			Font fnt1=new Font("arial",1,30);
 			g.setColor(Color.BLACK);
@@ -151,7 +165,7 @@ public class Menu extends MouseAdapter{
 			Font fnt=new Font("arial",1,50);
 			Font fnt1=new Font("arial",1,30);
 			Font fnt2=new Font("arial",1,20);
-			
+
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 			g.setFont(fnt);
@@ -173,7 +187,7 @@ public class Menu extends MouseAdapter{
 			Font fnt=new Font("arial",1,50);
 			Font fnt1=new Font("arial",1,30);
 			Font fnt2=new Font("arial",1,20);
-			
+
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 			g.setFont(fnt);
@@ -186,14 +200,37 @@ public class Menu extends MouseAdapter{
 			g.setFont(fnt1);
 			g.drawRect(380, 160, 240, 64);
 			g.drawString("Next level", 430, 200);
-			
+
 			g.drawRect(380, 260, 240, 64);
 			g.drawString("Replay", 450, 300);
-			
+
 			g.drawRect(380, 360, 240, 64);
 			g.drawString("Menu", 460, 400);
 		}
 		
+		else if(game.gameState ==STATE.Finish) {
+			Font fnt=new Font("arial",1,50);
+			Font fnt1=new Font("arial",1,30);
+			Font fnt2=new Font("arial",1,20);
+
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("YOU finish the GAME", 390, 100);
+			g.setFont(fnt2);
+			g.setColor(Color.WHITE);
+			g.drawString("Your score is "+HUD.score+" !", 420, 140);
+
+			g.setFont(fnt1);
+			
+			g.drawRect(380, 200, 240, 64);
+			g.drawString("Replay", 450, 300);
+
+			g.drawRect(380, 300, 240, 64);
+			g.drawString("Menu", 460, 400);
+		}
+
 
 	}
 

@@ -42,6 +42,7 @@ public class Game extends Canvas implements Runnable{
 		GameOver,
 		Pause,
 		win,
+		Finish,
 		Game
 	};
 	public STATE gameState=STATE.Menu;
@@ -131,7 +132,14 @@ public class Game extends Canvas implements Runnable{
 			handler.tick();
 			if (handler.isPause())gameState=STATE.Pause;
 			hud.tick();
-			if (win()==0) gameState =STATE.win; 
+			if (win()==0) 
+				if (position<niveaux.length) {
+					gameState =STATE.win; 
+				}
+				else {
+					gameState = STATE.Finish;
+				}
+				
 
 
 		}
@@ -220,7 +228,7 @@ public class Game extends Canvas implements Runnable{
 
 			}
 		}
-	}
+	} 
 	private int win() {
 		int s=0;
 		for(GameObject tempObject : handler.object) {
