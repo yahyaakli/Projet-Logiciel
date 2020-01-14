@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable{
 	public CountDown countdown  ;
 	private Menu menu;
 	private Pause pause;
-	String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
+	String [] niveaux = {"/dandies_level1.png","/dandies_level2.png"};
 	int position=0;
 
 	public static final int WIDTH = 1000;

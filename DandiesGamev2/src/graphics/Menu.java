@@ -1,4 +1,4 @@
-	package graphics;
+package graphics;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -64,18 +64,19 @@ public class Menu extends MouseAdapter{
 		}
 		
 		if (game.gameState == STATE.win) {
-			if (mouseOver(mx,my,380, 260, 240, 64)) {
+			if (mouseOver(mx,my,380, 160, 240, 64)) {
 				game.gameState=STATE.init;
 				game.position++;
 				game.init_game(game.niveaux[game.position]);
 			}
-			if (mouseOver(mx,my,380, 360, 240, 64)) {
+			if (mouseOver(mx,my,380, 260, 240, 64)) {
 				game.gameState=STATE.init;
 				game.init_game(game.niveaux[game.position]);
 			}
-			if (mouseOver(mx,my,380, 460, 240, 64)) {
+			if (mouseOver(mx,my,380, 360, 240, 64)) {
 				game.gameState=STATE.Menu;
 			}
+			
 		}
 	}
 
@@ -171,23 +172,26 @@ public class Menu extends MouseAdapter{
 		else if(game.gameState ==STATE.win) {
 			Font fnt=new Font("arial",1,50);
 			Font fnt1=new Font("arial",1,30);
+			Font fnt2=new Font("arial",1,20);
 			
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 			g.setFont(fnt);
 			g.setColor(Color.WHITE);
-			g.drawString("WIN", 370, 150);
-			
+			g.drawString("YOU WIN", 390, 100);
+			g.setFont(fnt2);
+			g.setColor(Color.WHITE);
+			g.drawString("Your score is "+HUD.score+" !", 420, 140);
 
 			g.setFont(fnt1);
-			g.drawRect(380, 260, 240, 64);
-			g.drawString("Next level", 430, 300);
-
-			g.drawRect(380, 360, 240, 64);
-			g.drawString("Play again", 460, 400);
+			g.drawRect(380, 160, 240, 64);
+			g.drawString("Next level", 430, 200);
 			
-			g.drawRect(380, 460, 240, 64);
-			g.drawString("Back", 460, 400);
+			g.drawRect(380, 260, 240, 64);
+			g.drawString("Replay", 450, 300);
+			
+			g.drawRect(380, 360, 240, 64);
+			g.drawString("Menu", 460, 400);
 		}
 		
 
