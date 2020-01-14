@@ -84,7 +84,6 @@ public class Pause extends MouseAdapter{
 		if(game.gameState ==STATE.Pause) {
 			BufferedImage logo = loader.loadImage("/dandiesLogo.png");
 			
-			Font fnt=new Font("arial",1,20);
 			Font fnt1=new Font("arial",1,30);
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);

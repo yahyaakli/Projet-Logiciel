@@ -16,7 +16,7 @@ import graphics.SpriteSheet;
 public class Hero extends GameObject{
 
 	Handler handler;
-	HUD hud;
+	HUD hud; 
 	Game game;
 	private BufferedImage hero_image;
 	private static final int speed = 3;

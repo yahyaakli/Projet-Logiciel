@@ -57,7 +57,7 @@ public class Hufflepuffs extends GameObject {
 		}
 		if(hp<=0) {
 			handler.removeObject(this);
-			HUD.score+=100;
+			HUD.score+=50;
 		}
 	}
 

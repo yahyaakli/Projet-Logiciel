@@ -30,9 +30,7 @@ public class Wall  extends GameObject {
 		return new Rectangle((int)x,(int)y,size,size);
 	}
 
-	@Override
 	public Rectangle getbounds2() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-import graphics.Game.STATE;
 import objects.*;
 
 public class Game extends Canvas implements Runnable{
@@ -30,7 +29,7 @@ public class Game extends Canvas implements Runnable{
 	private Menu menu;
 	private Pause pause;
 	String [] niveaux = {"/dandies_level1.png","/dandies_level2.png"};
-	int position=0;
+	public int position=0;
 
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 563;
@@ -67,7 +66,6 @@ public class Game extends Canvas implements Runnable{
 		camera = new Camera(0,0);
 
 		BufferedImageLoader loader = new BufferedImageLoader();
-		//level = loader.loadImage("/wizard_level.png");
 		level = loader.loadImage(niveau);
 		sprite_sheet = loader.loadImage("/sprite_sheet.png");
 		ss= new SpriteSheet(sprite_sheet);
@@ -90,7 +88,6 @@ public class Game extends Canvas implements Runnable{
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

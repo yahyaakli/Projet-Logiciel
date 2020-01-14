@@ -29,18 +29,14 @@ public class Bullet extends GameObject{
 		}
 
 	}
-	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.green);
 		g.fillOval((int)x, (int)y, size, size);
 	}
-	@Override
 	public Rectangle getbounds() {
 		return new Rectangle((int)x,(int)y,size,size);
 	}
-	@Override
 	public Rectangle getbounds2() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

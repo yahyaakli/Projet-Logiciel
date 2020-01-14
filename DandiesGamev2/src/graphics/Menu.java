@@ -7,8 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import com.sun.glass.ui.EventLoop.State;
-
 import graphics.Game.STATE;
 import objects.*;
 
@@ -91,7 +89,7 @@ public class Menu extends MouseAdapter{
 				game.gameState=STATE.Menu;
 			}
 
-		}
+		} 
 	}
 
 	public void MouseReleased(MouseEvent e) {
@@ -115,7 +113,7 @@ public class Menu extends MouseAdapter{
 		if(game.gameState ==STATE.Menu) {
 			BufferedImage logo = loader.loadImage("/dandiesLogo.png");
 
-			Font fnt=new Font("arial",1,20);
+			
 			Font fnt1=new Font("arial",1,30);
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
