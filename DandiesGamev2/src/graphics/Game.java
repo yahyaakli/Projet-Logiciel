@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable{
 	public CountDown countdown  ;
 	private Menu menu;
 	private Pause pause;
-	String [] niveaux = {"/dandies_level1.png","/dandies_level2.png"};
+	static String [] niveaux = {"/dandies_level1.png","/dandies_level2.png"};
 	public int position=0;
 
 	public static final int WIDTH = 1000;
@@ -44,17 +44,16 @@ public class Game extends Canvas implements Runnable{
 		Finish,
 		Game
 	};
+	int finishScore;
 	public STATE gameState=STATE.Menu;
-
+	public GameObject player;
 	public Game() {
 		new Window(WIDTH,HEIGHT,"Dandies Game",this);
 		menu=new Menu(this);
 		pause = new Pause(this);
-
-		start();
-
 		this.addMouseListener(menu);
 		this.addMouseListener(pause);
+		start();
 
 	}
 	public void init_game(String niveau) {
@@ -62,7 +61,6 @@ public class Game extends Canvas implements Runnable{
 
 		hud=new HUD();
 		handler = new Handler();
-		this.addKeyListener(new KeyInput(handler));
 		camera = new Camera(0,0);
 
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -71,11 +69,23 @@ public class Game extends Canvas implements Runnable{
 		ss= new SpriteSheet(sprite_sheet);
 
 		floor = ss.grabImage(4, 2, 32, 32);
-		this.addMouseListener(new MouseInput(handler,camera,this, ss));
+		
 		loadLevel(level);
-		gameState=STATE.Game;
+		
+		this.addKeyListener(new KeyInput(handler));
+		this.addMouseListener(new MouseInput(handler,camera,this, ss));
+		
+		
 		countdown = new CountDown(this);
 		countdown.tick();
+		for(GameObject tempObject : handler.object) {
+
+			if(tempObject.getId()==ID.griffindors || tempObject.getId()==ID.hufflepuffs) {
+				finishScore+=100;
+			}
+		}
+		
+		gameState=STATE.Game;
 	}
 
 	private void start() {
@@ -129,7 +139,7 @@ public class Game extends Canvas implements Runnable{
 			handler.tick();
 			if (handler.isPause())gameState=STATE.Pause;
 			hud.tick();
-			if (win()==0) 
+			if (win()) 
 				if (position<niveaux.length) {
 					gameState =STATE.win; 
 				}
@@ -213,7 +223,7 @@ public class Game extends Canvas implements Runnable{
 				if(red == 255 && blue == 0 && green ==255)
 					handler.addObject(new Wall(xx*32,yy*32,ID.wall, ss));
 				if(red == 0 && blue == 255 && green == 0)
-					handler.addObject(new Hero(xx*32,yy*32,ID.player,handler,hud,this, ss));
+					handler.addObject( player = new Hero(xx*32,yy*32,ID.player,handler,hud,this, ss));
 				if(red == 0 && blue == 0 && green == 255)
 					handler.addObject(new Griffindors(xx*32,yy*32,ID.griffindors,handler, ss));
 				if(red == 255 && blue == 255 && green == 0)
@@ -226,7 +236,7 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	} 
-	private int win() {
+/*	private int win() {
 		int s=0;
 		for(GameObject tempObject : handler.object) {
 			if(tempObject.getId()==ID.griffindors || tempObject.getId()==ID.hufflepuffs) {
@@ -234,6 +244,9 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		return s;
+	}*/
+	private boolean win() {
+		return (finishScore-100<=HUD.score);
 	}
 
 

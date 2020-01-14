@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import objects.*;
 
 public class MouseInput extends MouseAdapter{
-	
+
 	private Handler handler;
 	private Camera camera;
 	private Game game;
@@ -21,14 +21,11 @@ public class MouseInput extends MouseAdapter{
 	public void mousePressed(MouseEvent e) {
 		int mx = (int)(e.getX() + camera.getX());
 		int my = (int)(e.getY() + camera.getY());
-		for(int i=0;i<handler.object.size();i++) {
-			GameObject tempObject = handler.object.get(i);
-			if(tempObject.getId() == ID.player && game.ammo > 0) {
-				handler.addObject(new Bullet(tempObject.getX()+16,tempObject.getY()+24,ID.bullet,handler,mx,my, ss));
-				game.ammo--;
-			}
+		if(game.ammo > 0) {
+			handler.addObject(new Bullet(game.player.getX()+16,game.player.getY()+24,ID.bullet,handler,mx,my, ss));
+			game.ammo--;
 		}
 	}
-	
-	
+
+
 }

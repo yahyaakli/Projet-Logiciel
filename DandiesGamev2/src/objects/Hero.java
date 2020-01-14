@@ -6,8 +6,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.lang.Math;
 
-import com.sun.glass.ui.EventLoop.State;
-
 import graphics.Game;
 import graphics.Game.STATE;
 import graphics.SpriteSheet;
