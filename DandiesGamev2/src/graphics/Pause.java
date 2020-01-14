@@ -55,7 +55,7 @@ public class Pause extends MouseAdapter{
 		if(game.gameState==STATE.GameOver) {
 			if(mouseOver(mx,my,380, 260, 240, 64)) {
 				game.gameState=STATE.init;
-				game.init_game();
+				game.init_game(game.niveaux[game.position]);
 			}
 			if (mouseOver(mx,my,380, 360, 240, 64)) {
 				game.gameState=STATE.Pause;

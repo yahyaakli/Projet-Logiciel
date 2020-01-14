@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import graphics.Game.STATE;
 import objects.*;
 
 public class Game extends Canvas implements Runnable{
@@ -24,11 +25,12 @@ public class Game extends Canvas implements Runnable{
 	private SpriteSheet ss;
 	private HUD hud;
 	public int ammo;
-	
+
 	public CountDown countdown  ;
 	private Menu menu;
 	private Pause pause;
-	//private String [] niveaux = {"/wizard_level.png","/wizard_level2.png","/dandies_level2.png"};
+	String [] niveaux = {"/dandies_level1.png","/dandies_level2.png"};
+	int position=0;
 
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 563;
@@ -39,6 +41,7 @@ public class Game extends Canvas implements Runnable{
 		init,
 		GameOver,
 		Pause,
+		win,
 		Game
 	};
 	public STATE gameState=STATE.Menu;
@@ -47,16 +50,16 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH,HEIGHT,"Dandies Game",this);
 		menu=new Menu(this);
 		pause = new Pause(this);
-		
+
 		start();
-		
+
 		this.addMouseListener(menu);
 		this.addMouseListener(pause);
 
 	}
-	public void init_game() {
+	public void init_game(String niveau) {
 		ammo=0;
-		
+
 		hud=new HUD();
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
@@ -64,7 +67,7 @@ public class Game extends Canvas implements Runnable{
 
 		BufferedImageLoader loader = new BufferedImageLoader();
 		//level = loader.loadImage("/wizard_level.png");
-		level = loader.loadImage("/dandies_level2.png");
+		level = loader.loadImage(niveau);
 		sprite_sheet = loader.loadImage("/sprite_sheet.png");
 		ss= new SpriteSheet(sprite_sheet);
 
@@ -74,9 +77,6 @@ public class Game extends Canvas implements Runnable{
 		gameState=STATE.Game;
 		countdown = new CountDown(this);
 		countdown.tick();
-		
-
-
 	}
 
 	private void start() {
@@ -125,12 +125,15 @@ public class Game extends Canvas implements Runnable{
 			for(int i=0; i<handler.object.size();i++) {
 				if(handler.object.get(i).getId() == ID.player) {
 					camera.tick(handler.object.get(i));
-					
+
 				}
 			}
 			handler.tick();
 			if (handler.isPause())gameState=STATE.Pause;
 			hud.tick();
+			if (win()==0) gameState =STATE.win; 
+
+
 		}
 		else if (gameState==STATE.Pause) {
 			pause.tick();
@@ -140,6 +143,7 @@ public class Game extends Canvas implements Runnable{
 			menu.tick();
 
 		}
+
 	}
 
 	public void render() {
@@ -170,7 +174,7 @@ public class Game extends Canvas implements Runnable{
 			g.setFont(fnt);
 			g.setColor(Color.white);
 			g.drawString("Ammo: "+ammo,240,35);
-			
+
 
 			Font fnt1 = new Font("Courier",1,20);
 			g.setFont(fnt1);
@@ -213,9 +217,18 @@ public class Game extends Canvas implements Runnable{
 					handler.addObject(new Crate(xx*32, yy*32, ID.crate, ss));
 				if (red==255 && blue==255 && green==255)
 					handler.addObject(new Medikit(xx*32, yy*32, ID.medikit, ss));
-				
+
 			}
 		}
+	}
+	private int win() {
+		int s=0;
+		for(GameObject tempObject : handler.object) {
+			if(tempObject.getId()==ID.griffindors || tempObject.getId()==ID.hufflepuffs) {
+				s++;
+			}
+		}
+		return s;
 	}
 
 
@@ -224,5 +237,5 @@ public class Game extends Canvas implements Runnable{
 		else if(var<=min) return var = min;
 		else return var;
 	}
-	
+
 }

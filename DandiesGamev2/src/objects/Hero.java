@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.lang.Math;
 
+import com.sun.glass.ui.EventLoop.State;
+
 import graphics.Game;
 import graphics.Game.STATE;
 import graphics.SpriteSheet;
@@ -31,53 +33,57 @@ public class Hero extends GameObject{
 	public void tick() {
 		x+=velX;
 		y+=velY;
-		
+
 		collision();
 		if(handler.isUp()) velY = -speed;
 		else if(!handler.isDown()) velY = 0;
-		
+
 		if(handler.isDown()) velY = +speed;
 		else if(!handler.isUp()) velY = 0;
-		
+
 		if(handler.isRight()) velX = speed;
 		else if(!handler.isLeft()) velX = 0;
-		
+
 		if(handler.isLeft()) velX = -speed;
 		else if(!handler.isRight()) velX = 0;
 		
-		if(hud.HP == 0 || game.countdown.gettimecounter() == -1) {
+		if(hud.HP == 0 || game.countdown.gettimecounter() == 0) {
 			handler.removeObject(this);
 			game.gameState = STATE.GameOver;
 		}
+		
+
 	}
+
+		
 	
 	private void collision() {
 		for(int i=0;i<handler.object.size();i++) {
 			GameObject tempObject = handler.object.get(i);
 			if(tempObject.getId() == ID.wall || tempObject.getId() == ID.border || tempObject.getId() == ID.griffindors || tempObject.getId() == ID.hufflepuffs) {
 				if(getbounds().intersects(tempObject.getbounds())) {
-					
+
 					float[] pos={x,y};
 					float[] limit={tempObject.x,tempObject.y,tempObject.x+tempObject.size,tempObject.y+tempObject.size};
 					pos = clamp2D(pos , limit );
 					x=pos[0];
 					y=pos[1];
-					
+
 					pos[0] +=size;
 					pos = clamp2D(pos , limit );
 					x=pos[0]-size;
 					y=pos[1];
-					
+
 					pos[1]+=size;
 					pos = clamp2D(pos , limit );
 					x=pos[0]-size;
 					y=pos[1]-size;
-					
+
 					pos[0]-=size;
 					pos = clamp2D(pos , limit );
 					x=pos[0];
 					y=pos[1]-size;
-					
+
 				}
 			}
 			if(tempObject.getId() == ID.griffindors || tempObject.getId() == ID.hufflepuffs) {
@@ -87,7 +93,7 @@ public class Hero extends GameObject{
 					tempObject.velY=0;
 				}	
 			}
-			
+
 			if(tempObject.getId() == ID.crate) {
 				if(getbounds().intersects(tempObject.getbounds())) {
 					game.ammo += 30;
@@ -104,21 +110,21 @@ public class Hero extends GameObject{
 		}
 	}
 	public float[] clamp2D(float[] pos, float[] limit) {
-		
+
 		if ((pos[1]-limit[1])*(pos[1]-limit[3])<=0) {
-			
+
 			if ((pos[0]-limit[0])*(pos[0]-limit[2])<=0) {
-				
+
 				if (Math.abs(pos[0]-limit[0])<Math.abs(pos[0]-limit[2])) pos[0]=limit[0]-1;
 				else pos[0]=limit[2];
-				
+
 				if (Math.abs(pos[1]-limit[1])<Math.abs(pos[1]-limit[3])) pos[1]=limit[1]-1;
 
 				else pos[1]=limit[3];
-				
+
 			}
 		}
-					
+
 		return pos;
 	}
 	public void render(Graphics g) {
@@ -134,5 +140,7 @@ public class Hero extends GameObject{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }
