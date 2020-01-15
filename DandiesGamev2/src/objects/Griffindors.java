@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-
+import graphics.Game;
 import graphics.SpriteSheet;
 
 public class Griffindors extends GameObject{
@@ -25,7 +25,8 @@ public class Griffindors extends GameObject{
 	public void tick() {
 		x+=velX;
 		y+=velY;
-
+		x= Game.clamp((int)x,0,2000);
+		y= Game.clamp((int)y,0,1090);
 		choose=r.nextInt(10);
 		for(int i=0;i<handler.object.size();i++) {
 			GameObject tempObject = handler.object.get(i);
