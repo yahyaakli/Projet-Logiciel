@@ -9,11 +9,15 @@ import graphics.*;
 public class HUD {
 	public int HP =100;
 	private int greenValue = 255;
-	public static int score=0;
+	public static int score;
+	public HUD(){
+		score = 0;
+	}
 	public void tick() {
 		HP=Game.clamp(HP, 0, 100);
 		greenValue = Game.clamp(greenValue, 0, 255);
 		greenValue = HP*2;
+		
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.GRAY);

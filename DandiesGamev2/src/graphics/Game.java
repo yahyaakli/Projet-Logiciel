@@ -82,9 +82,11 @@ public class Game extends Canvas implements Runnable{
 
 			if(tempObject.getId()==ID.griffindors || tempObject.getId()==ID.hufflepuffs) {
 				finishScore+=100;
+				
 			}
 		}
 		
+		System.out.println(finishScore);
 		gameState=STATE.Game;
 	}
 
@@ -246,7 +248,7 @@ public class Game extends Canvas implements Runnable{
 		return s;
 	}*/
 	private boolean win() {
-		return (finishScore-100<=HUD.score);
+		return (HUD.score>=300);
 	}
 
 
