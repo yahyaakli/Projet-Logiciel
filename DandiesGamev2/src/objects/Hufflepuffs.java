@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import graphics.Game;
 import graphics.SpriteSheet;
 import graphics.*;
 
@@ -43,6 +44,8 @@ public class Hufflepuffs extends GameObject {
 		velY = (float) ((-1.0/distance)*diffY2);
 		x+=velX;
 		y+=velY;
+		x= Game.clamp((int)x,0,2000);
+		y= Game.clamp((int)y,0,1090);
 		if(y<=0 || y>=Game.HEIGHT-32) velY*=-1;
 		if(x<=0 || x>=Game.WIDTH-16) velX*=-1;
 		for(int i=0;i<handler.object.size();i++) {
