@@ -19,7 +19,7 @@ public class Hufflepuffs extends GameObject {
 	int choose=0;
 	int hp=100;
 
-	public Hufflepuffs(int x, int y, ID id, Handler handler, SpriteSheet ss) {
+	public Hufflepuffs(float x,float y, ID id, Handler handler, SpriteSheet ss) {
 		super(x, y, id, ss);
 		this.handler = handler;
 		size=32;
@@ -44,8 +44,6 @@ public class Hufflepuffs extends GameObject {
 		velY = (float) ((-1.0/distance)*diffY2);
 		x+=velX;
 		y+=velY;
-		x= Game.clamp((int)x,0,2000);
-		y= Game.clamp((int)y,0,1090);
 		if(y<=0 || y>=Game.HEIGHT-32) velY*=-1;
 		if(x<=0 || x>=Game.WIDTH-16) velX*=-1;
 		for(int i=0;i<handler.object.size();i++) {
@@ -60,7 +58,7 @@ public class Hufflepuffs extends GameObject {
 		}
 		if(hp<=0) {
 			handler.removeObject(this);
-			HUD.score+=50;
+			HUD.score+=100;
 		}
 	}
 
