@@ -215,7 +215,7 @@ public class Menu extends MouseAdapter{
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 			g.setFont(fnt);
 			g.setColor(Color.WHITE);
-			g.drawString("YOU finish the GAME", 390, 100);
+			g.drawString("YOU finish the GAME", 260, 100);
 			g.setFont(fnt2);
 			g.setColor(Color.WHITE);
 			g.drawString("Your score is "+HUD.score+" !", 420, 140);
@@ -223,10 +223,10 @@ public class Menu extends MouseAdapter{
 			g.setFont(fnt1);
 			
 			g.drawRect(380, 200, 240, 64);
-			g.drawString("Replay", 450, 300);
+			g.drawString("Replay", 450, 240);
 
 			g.drawRect(380, 300, 240, 64);
-			g.drawString("Menu", 460, 400);
+			g.drawString("Menu", 460, 340);
 		}
 
 

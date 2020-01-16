@@ -142,7 +142,7 @@ public class Game extends Canvas implements Runnable{
 			if (handler.isPause())gameState=STATE.Pause;
 			hud.tick();
 			if (win()) 
-				if (position<niveaux.length) {
+				if (position<niveaux.length-1) {
 					gameState =STATE.win; 
 				}
 				else {
